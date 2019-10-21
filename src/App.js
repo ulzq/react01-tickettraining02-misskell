@@ -100,43 +100,49 @@ class App extends React.Component {
     //   this works because {this.state.currentPlayer} will evaluate to null
     //   in wich case lazy evaluation will continue with the expression
     //   and newPlayerwill be chosen.
-    this.state.currentPlayer = this.state.currentPlayer || newPlayer;
+    this.setState({currentPlayer:this.state.currentPlayer || newPlayer});
+  }
     // because we mutated the state directly (mainly because of the array)
     // we need to force an update in order for react to render anew.
-    this.forceUpdate()
-  }
 
   /*
     The following functions modify the player objects
   */
 
-  turnLeft = ()=> {
-    if ( this.state.controlsBlocked ) return;
-    if ( ! this.state.currentPlayer ) return;
-    this.state.currentPlayer.angle -= 5;
-    this.forceUpdate()
-  }
+ turnLeft = ()=> {
+  if ( this.state.controlsBlocked ) return;
+  if ( ! this.state.currentPlayer ) return;
+  let left = this.currentPlayer;
+  left.angle -= 5;
+  this.setState({currentPlayer : left});
 
-  turnRight = ()=> {
-    if ( this.state.controlsBlocked ) return;
-    if ( ! this.state.currentPlayer ) return;
-    this.state.currentPlayer.angle += 5;
-    this.forceUpdate()
-  }
+  
+}
 
-  lessPower = ()=> {
-    if ( this.state.controlsBlocked ) return;
-    if ( ! this.state.currentPlayer ) return;
-    this.state.currentPlayer.power -= 5;
-    this.forceUpdate()
-  }
+turnRight = ()=> {
+  if ( this.state.controlsBlocked ) return;
+  if ( ! this.state.currentPlayer ) return;
+  let right = this.currentPlayer;
+  right.angle += 5;
+  this.setState({currentPlayer : right});
+}
 
-  morePower = ()=> {
-    if ( this.state.controlsBlocked ) return;
-    if ( ! this.state.currentPlayer ) return;
-    this.state.currentPlayer.power += 5;
-    this.forceUpdate()
-  }
+lessPower = ()=> {
+  if ( this.state.controlsBlocked ) return;
+  if ( ! this.state.currentPlayer ) return;
+  let less = this.currentPlayer;
+  less.power -= 5;
+  this.setState({currentPlayer : less});
+}
+
+morePower = ()=> {
+  if ( this.state.controlsBlocked ) return;
+  if ( ! this.state.currentPlayer ) return;
+  let more = this.currentPlayer;
+  more.power += 5;
+  this.setState({currentPlayer : more});
+}
+
 
   /*
     This is the simulation part.
