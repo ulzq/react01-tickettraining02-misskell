@@ -52,6 +52,7 @@ class Battlefield extends React.Component {
     c.closePath();
     c.fill();
     c.fillStyle = '#f00';
+    c.strokeStyle = '#fff';
     this.props.controller.state.player.forEach( (player) => {
       c.beginPath();
       c.arc( player.x, height - player.y, 10, 0, 2 * Math.PI );
@@ -65,14 +66,14 @@ class Battlefield extends React.Component {
       c.stroke();
     });
     if ( cannonball ){
-      c.fillStyle = '#000';
+      c.fillStyle = '#fff';
       c.beginPath();
       c.arc( cannonball.x, height - cannonball.y, 3, 0, 2 * Math.PI );
       c.fill();
       let rx = Math.round(cannonball.x);
       let ry = Math.round(cannonball.y);
       let px = this.cachedCtx.getImageData(rx,height-ry,1,1).data;
-      if ( px[0] == 0 && px[1] == 255 && px[2] == 0 && px[3] == 255 ){
+      if ( px[0] === 0 && px[1] === 255 && px[2] === 0 && px[3] === 255 ){
         return true;
       }
       if ( cannonball.x < 0 || cannonball.x > width || cannonball.y < 0 ){
